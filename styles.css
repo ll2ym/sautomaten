@@ -784,7 +784,7 @@ img {
 .main-footer {
     background-color: var(--navy-dark);
     color: rgba(255, 255, 255, 0.7);
-    padding: 40px 0;
+    padding: 12px 0;
     font-size: 14px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -793,6 +793,7 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
 }
 
 .footer-logo-text {
