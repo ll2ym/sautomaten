@@ -525,4 +525,31 @@ document.addEventListener("DOMContentLoaded", () => {
     if (datenschutzBackdrop && datenschutzModal) {
         datenschutzBackdrop.addEventListener("click", () => closeLegalModal(datenschutzModal));
     }
+
+    // 10. Live Opening Hours Status Indicator (Mo - Fr 8:00 - 17:00)
+    const statusDot = document.getElementById("statusDot");
+    const statusLabel = document.getElementById("statusLabel");
+
+    function updateOpeningStatus() {
+        if (!statusDot || !statusLabel) return;
+        const now = new Date();
+        const day = now.getDay(); // 0 = Sunday, 1 = Mon, ..., 5 = Fri, 6 = Sat
+        const hour = now.getHours();
+
+        // Working hours: Mon - Fri (1 to 5), 8:00 to 17:00 (8 <= hour < 17)
+        const isOpen = (day >= 1 && day <= 5) && (hour >= 8 && hour < 17);
+
+        if (isOpen) {
+            statusDot.className = "status-dot open";
+            statusLabel.className = "status-label open";
+            statusLabel.textContent = "Jetzt Geöffnet";
+        } else {
+            statusDot.className = "status-dot closed";
+            statusLabel.className = "status-label closed";
+            statusLabel.textContent = "Geschlossen";
+        }
+    }
+
+    updateOpeningStatus();
+    setInterval(updateOpeningStatus, 60000);
 });

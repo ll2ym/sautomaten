@@ -635,9 +635,100 @@ img {
 .contact-info-card {
     background: var(--white);
     color: var(--text);
-    padding: 40px;
+    padding: 32px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
+}
+
+.opening-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    background: var(--bg-light);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    border: 1px solid rgba(11, 46, 94, 0.08);
+}
+
+.opening-status-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+}
+
+.opening-status-left svg {
+    color: var(--orange);
+}
+
+.status-indicator-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-label.open {
+    color: #10b981;
+}
+
+.status-label.closed {
+    color: #ef4444;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.status-dot.open {
+    background-color: #10b981;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: pulseGreen 2s infinite;
+}
+
+.status-dot.closed {
+    background-color: #ef4444;
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    animation: pulseRed 2s infinite;
+}
+
+@keyframes pulseGreen {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7), 0 0 8px #10b981;
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0), 0 0 14px #10b981;
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0), 0 0 8px #10b981;
+    }
+}
+
+@keyframes pulseRed {
+    0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7), 0 0 8px #ef4444;
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0), 0 0 14px #ef4444;
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0), 0 0 8px #ef4444;
+    }
 }
 
 .contact-item {
