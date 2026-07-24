@@ -595,15 +595,15 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
         ctx.fill();
 
-        // Draw letter or emoji with brand orange color (#f97316)
-        ctx.fillStyle = "#f97316";
+        // Draw letter or emoji with vivid bold red (#e60000)
+        ctx.fillStyle = "#e60000";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
 
         const isEmoji = char.length > 1;
-        ctx.font = isEmoji ? "28px sans-serif" : "bold 36px Arial, sans-serif";
+        ctx.font = isEmoji ? "36px sans-serif" : "900 48px 'Arial Black', Impact, sans-serif";
 
-        ctx.fillText(char, size / 2, size / 2 + 2);
+        ctx.fillText(char, size / 2, size / 2 + 3);
 
         // Update favicon link
         const favicon = document.getElementById("favicon");
