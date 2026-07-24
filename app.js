@@ -648,9 +648,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Start animation loop (1200ms per character - 1/2x slower)
+    // Start animation loop (2400ms per character - 1/2x slower than 1200ms)
     setInterval(() => {
         drawFavicon(textSequence[favIndex]);
         favIndex = (favIndex + 1) % textSequence.length;
-    }, 1200);
+    }, 2400);
 });

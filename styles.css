@@ -1045,21 +1045,32 @@ img {
         font-size: 38px;
     }
     .main-footer {
-        padding: 8px 0;
+        padding: 10px 0;
     }
     .footer-container {
-        flex-direction: column;
-        gap: 6px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
         text-align: center;
     }
     .footer-logo-text {
         font-size: 12px;
         font-weight: 500;
     }
-    .footer-container > div:last-child {
-        display: none !important;
+    .footer-logo-text::after {
+        content: " •";
+        opacity: 0.5;
+        margin-left: 2px;
     }
     .footer-links {
         font-size: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .footer-container > div:last-child {
+        display: none !important;
     }
 }
