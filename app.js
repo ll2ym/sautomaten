@@ -157,6 +157,18 @@ const machineData = {
             "Kompakte Bauweise für flexiblen Einbau"
         ],
         img: "assets/12.jpg"
+    },
+    ersatzteile: {
+        title: "Ersatzteile und mehr",
+        badge: "Zubehör & Ersatzteile",
+        desc: "Senden Sie uns gerne eine Anfrage zu den benötigten Teilen.",
+        specs: [
+            "Original-Ersatzteile & Komponenten für alle gängigen Automaten",
+            "Schnelle Bearbeitung & Lieferung in ganz Hessen",
+            "Schläuche, Spiralen, Tastaturen, Displays, Kühleinheiten u.v.m.",
+            "Persönliche Beratung & technischer Kundensupport"
+        ],
+        img: "assets/13.jpg"
     }
 };
 
@@ -241,7 +253,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const filterValue = btn.getAttribute("data-filter");
 
             catalogCards.forEach(card => {
-                if (filterValue === "all" || card.getAttribute("data-category") === filterValue) {
+                const cardId = card.getAttribute("data-id");
+                let shouldShow = false;
+
+                if (cardId === "ersatzteile") {
+                    // Shown ONLY under Zubehör & Systeme
+                    shouldShow = (filterValue === "accessory");
+                } else {
+                    shouldShow = (filterValue === "all" || card.getAttribute("data-category") === filterValue);
+                }
+
+                if (shouldShow) {
                     card.style.display = "block";
                     // Brief fade in animation
                     card.style.opacity = "0";
