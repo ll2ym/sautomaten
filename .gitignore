@@ -1,0 +1,36 @@
+# Ignore all assets by default
+assets/*
+
+# Whitelist ONLY assets used in the website
+!assets/1.jpg
+!assets/2.jpg
+!assets/3.jpg
+!assets/4.jpg
+!assets/5.jpg
+!assets/6.jpg
+!assets/7.jpg
+!assets/8.jpg
+!assets/9.jpg
+!assets/10.jpg
+!assets/11.jpg
+!assets/12.jpg
+!assets/airport2.jpg
+!assets/fave.ico
+!assets/favicon.ico
+!assets/gas.jpg
+!assets/hesse.png
+!assets/logo.png
+!assets/machines_office.png
+!assets/ubahn2.jpg
+!assets/person_machine.jpg
+!assets/w1.png
+!assets/machines_wide.jpg
+!assets/machines_row2.png
+!assets/machines_row3.png
+!assets/machines_row1.png
+!assets/s7a.png
+!assets/machines_hero.png
+
+# OS metadata
+.DS_Store
+Thumbs.db
