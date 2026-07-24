@@ -449,4 +449,80 @@ document.addEventListener("DOMContentLoaded", () => {
             mapImg.style.transition = 'transform 0.1s ease-out, filter 0.1s ease-out';
         });
     }
+
+    // 8. Cookie Banner Toast
+    const cookieBanner = document.getElementById("cookieBanner");
+    const acceptCookies = document.getElementById("acceptCookies");
+    const cookieDatenschutzLink = document.getElementById("cookieDatenschutzLink");
+
+    if (cookieBanner && acceptCookies) {
+        if (!localStorage.getItem("cookieConsentAccepted")) {
+            setTimeout(() => {
+                cookieBanner.classList.add("active");
+            }, 800);
+        }
+
+        acceptCookies.addEventListener("click", () => {
+            localStorage.setItem("cookieConsentAccepted", "true");
+            cookieBanner.classList.remove("active");
+        });
+    }
+
+    // 9. Impressum & Datenschutz Modal Logic
+    const openImpressum = document.getElementById("openImpressum");
+    const impressumModal = document.getElementById("impressumModal");
+    const impressumClose = document.getElementById("impressumClose");
+    const impressumBackdrop = document.getElementById("impressumBackdrop");
+
+    const openDatenschutz = document.getElementById("openDatenschutz");
+    const datenschutzModal = document.getElementById("datenschutzModal");
+    const datenschutzClose = document.getElementById("datenschutzClose");
+    const datenschutzBackdrop = document.getElementById("datenschutzBackdrop");
+
+    function openLegalModal(targetModal) {
+        if (!targetModal) return;
+        targetModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLegalModal(targetModal) {
+        if (!targetModal) return;
+        targetModal.classList.remove("active");
+        document.body.style.overflow = "auto";
+    }
+
+    if (openImpressum && impressumModal) {
+        openImpressum.addEventListener("click", (e) => {
+            e.preventDefault();
+            openLegalModal(impressumModal);
+        });
+    }
+
+    if (impressumClose && impressumModal) {
+        impressumClose.addEventListener("click", () => closeLegalModal(impressumModal));
+    }
+    if (impressumBackdrop && impressumModal) {
+        impressumBackdrop.addEventListener("click", () => closeLegalModal(impressumModal));
+    }
+
+    if (openDatenschutz && datenschutzModal) {
+        openDatenschutz.addEventListener("click", (e) => {
+            e.preventDefault();
+            openLegalModal(datenschutzModal);
+        });
+    }
+
+    if (cookieDatenschutzLink && datenschutzModal) {
+        cookieDatenschutzLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            openLegalModal(datenschutzModal);
+        });
+    }
+
+    if (datenschutzClose && datenschutzModal) {
+        datenschutzClose.addEventListener("click", () => closeLegalModal(datenschutzModal));
+    }
+    if (datenschutzBackdrop && datenschutzModal) {
+        datenschutzBackdrop.addEventListener("click", () => closeLegalModal(datenschutzModal));
+    }
 });
