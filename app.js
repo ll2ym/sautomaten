@@ -574,4 +574,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateOpeningStatus();
     setInterval(updateOpeningStatus, 60000);
+
+    // 11. Dynamic Canvas Favicon Animation
+    const textSequence = ["S", "A", "U", "T", "O", "M", "A", "T", "E", "N", "🎆"];
+    let favIndex = 0;
+
+    function drawFavicon(char) {
+        const size = 64;
+        const canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d");
+
+        // Clear canvas
+        ctx.clearRect(0, 0, size, size);
+
+        // Draw white circle background
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw letter or emoji with brand orange color (#f97316)
+        ctx.fillStyle = "#f97316";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        const isEmoji = char.length > 1;
+        ctx.font = isEmoji ? "28px sans-serif" : "bold 36px Arial, sans-serif";
+
+        ctx.fillText(char, size / 2, size / 2 + 2);
+
+        // Update favicon link
+        const favicon = document.getElementById("favicon");
+        if (favicon) {
+            favicon.href = canvas.toDataURL("image/png");
+        }
+    }
+
+    // Start animation loop (600ms per character)
+    setInterval(() => {
+        drawFavicon(textSequence[favIndex]);
+        favIndex = (favIndex + 1) % textSequence.length;
+    }, 600);
 });
