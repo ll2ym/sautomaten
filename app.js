@@ -210,16 +210,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const mainHeader = document.querySelector(".main-header");
     const sections = document.querySelectorAll("section");
     const navLinks = document.querySelectorAll(".nav-link");
+    let lastScrollY = window.scrollY;
 
     function handleScroll() {
+        const currentScrollY = window.scrollY;
+        const isMobile = window.innerWidth <= 992;
+
         // Header shrink toggle
         if (mainHeader) {
-            if (window.scrollY > 30) {
+            if (currentScrollY > 30) {
                 mainHeader.classList.add("scrolled");
             } else {
                 mainHeader.classList.remove("scrolled");
             }
+
+            // Hide header & close menu on scroll down on mobile
+            if (isMobile) {
+                if (currentScrollY > lastScrollY && currentScrollY > 60) {
+                    mainHeader.classList.add("header-hidden");
+                    if (navMenu && navMenu.classList.contains("active")) {
+                        navMenu.classList.remove("active");
+                        if (menuToggle) menuToggle.classList.remove("active");
+                        const bars = menuToggle ? menuToggle.querySelectorAll(".bar") : [];
+                        if (bars.length >= 3) {
+                            bars[0].style.transform = "none";
+                            bars[1].style.opacity = "1";
+                            bars[2].style.transform = "none";
+                        }
+                    }
+                } else {
+                    mainHeader.classList.remove("header-hidden");
+                }
+            } else {
+                mainHeader.classList.remove("header-hidden");
+            }
         }
+
+        lastScrollY = currentScrollY;
 
         // Active link highlighting
         let current = "";
@@ -245,37 +272,46 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterButtons = document.querySelectorAll(".filter-btn");
     const catalogCards = document.querySelectorAll(".catalog-card");
 
+    function applyCatalogFilter(filterValue) {
+        const isMobile = window.innerWidth <= 768;
+
+        catalogCards.forEach(card => {
+            const cardId = card.getAttribute("data-id");
+            let shouldShow = false;
+
+            if (cardId === "ersatzteile") {
+                // Show on accessory filter OR on mobile view when viewing all!
+                shouldShow = (filterValue === "accessory" || (isMobile && filterValue === "all"));
+            } else {
+                shouldShow = (filterValue === "all" || card.getAttribute("data-category") === filterValue);
+            }
+
+            if (shouldShow) {
+                card.style.display = "block";
+                card.style.opacity = "1";
+                card.style.transform = "translateY(0)";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
     filterButtons.forEach(btn => {
         btn.addEventListener("click", () => {
             filterButtons.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
 
             const filterValue = btn.getAttribute("data-filter");
-
-            catalogCards.forEach(card => {
-                const cardId = card.getAttribute("data-id");
-                let shouldShow = false;
-
-                if (cardId === "ersatzteile") {
-                    // Shown ONLY under Zubehör & Systeme
-                    shouldShow = (filterValue === "accessory");
-                } else {
-                    shouldShow = (filterValue === "all" || card.getAttribute("data-category") === filterValue);
-                }
-
-                if (shouldShow) {
-                    card.style.display = "block";
-                    // Brief fade in animation
-                    card.style.opacity = "0";
-                    setTimeout(() => {
-                        card.style.opacity = "1";
-                        card.style.transform = "translateY(0)";
-                    }, 50);
-                } else {
-                    card.style.display = "none";
-                }
-            });
+            applyCatalogFilter(filterValue);
         });
+    });
+
+    // Run initial filter check for mobile layout
+    applyCatalogFilter("all");
+    window.addEventListener("resize", () => {
+        const activeBtn = document.querySelector(".filter-btn.active");
+        const currentFilter = activeBtn ? activeBtn.getAttribute("data-filter") : "all";
+        applyCatalogFilter(currentFilter);
     });
 
     // 3. Modal logic
@@ -612,9 +648,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Start animation loop (600ms per character)
+    // Start animation loop (1200ms per character - 1/2x slower)
     setInterval(() => {
         drawFavicon(textSequence[favIndex]);
         favIndex = (favIndex + 1) % textSequence.length;
-    }, 600);
+    }, 1200);
 });
